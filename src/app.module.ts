@@ -5,7 +5,7 @@ import { TypeOrmModule } from '@nestjs/typeorm';
 import { Todo } from './typeorm/entities/Todo';
 import { TodosModule } from './todos/todos.module';
 import { UsersModule } from './users/users.module';
-import { UsersModule } from './users/users.module';
+import { User } from './typeorm/entities/User';
 
 @Module({
   imports: [
@@ -17,7 +17,7 @@ import { UsersModule } from './users/users.module';
       password: 'tokyosuarez3093',
       database: 'todo_db',
       synchronize: true,
-      entities: [Todo]
+      entities: [Todo, User]
     }),
     TodosModule,
     UsersModule
