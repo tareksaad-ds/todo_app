@@ -26,12 +26,14 @@ export class UsersService {
     }
     async signinValidation({email, password}: LoginParams){
         const findUser = await this.userRepository.findOne({where: { email: email }});
-        if(!findUser) return null;
+        if(!findUser) throw new HttpException('Invalid Email', 409);
         if(findUser.password === password){
             const { password , ...user} = findUser;
-            return this.jwtService.sign(user);
+            return {
+                "token": this.jwtService.sign(user)
+            }
         }else{
-            throw new HttpException('Invalid Password', 402);
+            throw new HttpException('Invalid Password', 409);
         }
     }
     removeUser(id: number){
